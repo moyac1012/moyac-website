@@ -1,0 +1,8 @@
+{
+  // Cloudflare Workers（静的アセット配信）用の設定
+  "name": "moyac-website",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}

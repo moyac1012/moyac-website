@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import PostList from '../../components/PostList.astro';
+import { isPublished, sortByDateDesc } from '../../lib/entries';
+
+const posts = sortByDateDesc(await getCollection('posts', isPublished));
+---
+
+<BaseLayout title="記事">
+  <section class="section container">
+    <SectionHeading title="記事" en="Writing" />
+    <PostList entries={posts} />
+  </section>
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ActivityCard from './ActivityCard.astro';
+
+interface Props {
+  entries: CollectionEntry<'activities'>[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="grid">
+  {entries.map((entry) => <ActivityCard entry={entry} />)}
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: var(--space-3);
+  }
+</style>

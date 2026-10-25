@@ -1,0 +1,43 @@
+/*
+ * デザイントークン（配色・書体・余白）
+ * 参考サイトのデザインに合わせる際は、このファイルの値だけを差し替える。
+ * 現在の値は仮置き（墨色ベース＋金のアクセント、明朝見出し）。
+ */
+:root {
+  --color-bg: #f6f1e7;
+  --color-surface: #fffdf8;
+  --color-ink: #1c1917;
+  --color-ink-muted: #5c544b;
+  --color-line: #d9cfbf;
+  --color-accent: #9a3b2e;
+  --color-accent-soft: #c8a45c;
+  --color-hero-bg: #1c1917;
+  --color-hero-ink: #f6f1e7;
+
+  --font-heading: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-body: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+
+  --content-width: 64rem;
+  --radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #151311;
+    --color-surface: #1f1c19;
+    --color-ink: #ece5d8;
+    --color-ink-muted: #a89e90;
+    --color-line: #3a342e;
+    --color-accent: #d9735f;
+    --color-accent-soft: #c8a45c;
+    --color-hero-bg: #0d0c0b;
+    --color-hero-ink: #ece5d8;
+  }
+}

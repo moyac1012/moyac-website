@@ -1,0 +1,70 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, toIsoDate } from '../lib/date';
+
+interface Props {
+  entries: CollectionEntry<'media'>[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ol class="media-list">
+  {entries.map(({ data }) => (
+    <li>
+      <time datetime={toIsoDate(data.date)}>{formatDate(data.date)}</time>
+      <span class="kind">{data.kind}</span>
+      <div class="body">
+        <span class="outlet">{data.outlet}</span>
+        {data.url ? (
+          <a href={data.url} rel="noopener" target="_blank">{data.title}</a>
+        ) : (
+          <span>{data.title}</span>
+        )}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .media-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  li {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: var(--space-1) var(--space-2);
+    align-items: baseline;
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--color-line);
+  }
+  time {
+    font-size: 0.875rem;
+    color: var(--color-ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .kind {
+    justify-self: start;
+    font-size: 0.75rem;
+    padding: 0 0.6em;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    border-radius: 2px;
+  }
+  .outlet {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-ink-muted);
+  }
+  @media (max-width: 30rem) {
+    li {
+      grid-template-columns: auto 1fr;
+    }
+    .body {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

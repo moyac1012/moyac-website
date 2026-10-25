@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<p class="more"><a href={href}>{label} →</a></p>
+
+<style>
+  .more {
+    margin: var(--space-3) 0 0;
+    text-align: right;
+    font-size: 0.875rem;
+  }
+</style>

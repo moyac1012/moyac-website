@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import MediaList from '../../components/MediaList.astro';
+import { sortByDateDesc } from '../../lib/entries';
+
+const media = sortByDateDesc(await getCollection('media'));
+---
+
+<BaseLayout title="メディア出演">
+  <section class="section container">
+    <SectionHeading title="メディア出演" en="Media" />
+    <MediaList entries={media} />
+  </section>
+</BaseLayout>

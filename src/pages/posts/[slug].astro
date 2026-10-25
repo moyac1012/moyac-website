@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate, toIsoDate } from '../../lib/date';
+import { isPublished } from '../../lib/entries';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', isPublished);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="section container article">
+    <time datetime={toIsoDate(post.data.date)}>{formatDate(post.data.date)}</time>
+    <h1>{post.data.title}</h1>
+    <div class="prose">
+      <Content />
+    </div>
+    {post.data.noteUrl && (
+      <p class="note-link"><a href={post.data.noteUrl} rel="noopener" target="_blank">note で読む →</a></p>
+    )}
+    <p class="back"><a href="/posts/">← 記事一覧へ</a></p>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: 44rem;
+  }
+  time {
+    font-size: 0.875rem;
+    color: var(--color-ink-muted);
+  }
+  h1 {
+    font-size: clamp(1.5rem, 5vw, 2.25rem);
+    margin-bottom: var(--space-4);
+  }
+  .note-link,
+  .back {
+    margin-top: var(--space-4);
+    font-size: 0.875rem;
+  }
+</style>

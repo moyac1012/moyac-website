@@ -1,0 +1,44 @@
+---
+import { profile } from '../data/profile';
+---
+
+<ul class="works">
+  {profile.works.map((work, i) => (
+    <li>
+      <span class="num">{String(i + 1).padStart(2, '0')}</span>
+      <h3>{work.title}</h3>
+      <p>{work.body}</p>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .works {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: var(--space-3);
+  }
+  .num {
+    font-family: var(--font-heading);
+    color: var(--color-accent-soft);
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.125rem;
+    margin-block: var(--space-1);
+  }
+  p {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-size: 0.9375rem;
+  }
+</style>

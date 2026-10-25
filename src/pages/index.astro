@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WorkHighlights from '../components/WorkHighlights.astro';
+import MediaList from '../components/MediaList.astro';
+import ActivityGrid from '../components/ActivityGrid.astro';
+import PostList from '../components/PostList.astro';
+import MoreLink from '../components/MoreLink.astro';
+import { profile } from '../data/profile';
+import { isPublished, sortByDateDesc } from '../lib/entries';
+
+const TOP_LIMIT = 3;
+const media = sortByDateDesc(await getCollection('media')).slice(0, TOP_LIMIT);
+const activities = sortByDateDesc(await getCollection('activities')).slice(0, TOP_LIMIT);
+const posts = sortByDateDesc(await getCollection('posts', isPublished)).slice(0, TOP_LIMIT);
+---
+
+<BaseLayout>
+  <Hero />
+
+  <section class="section container">
+    <SectionHeading id="about" title="プロフィール" en="About" />
+    <p class="bio">{profile.bio}</p>
+    <WorkHighlights />
+  </section>
+
+  <section class="section container">
+    <SectionHeading title="メディア出演" en="Media" />
+    <MediaList entries={media} />
+    <MoreLink href="/media/" label="すべてのメディア出演" />
+  </section>
+
+  <section class="section container">
+    <SectionHeading title="活動" en="Activities" />
+    <ActivityGrid entries={activities} />
+    <MoreLink href="/activities/" label="すべての活動" />
+  </section>
+
+  <section class="section container">
+    <SectionHeading title="記事" en="Writing" />
+    <PostList entries={posts} />
+    <MoreLink href="/posts/" label="すべての記事" />
+  </section>
+
+  {profile.contactEmail && (
+    <section class="section container">
+      <SectionHeading title="お問い合わせ" en="Contact" />
+      <p><a href={`mailto:${profile.contactEmail}`}>{profile.contactEmail}</a></p>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .bio {
+    max-width: 40rem;
+    margin: 0 0 var(--space-4);
+  }
+</style>

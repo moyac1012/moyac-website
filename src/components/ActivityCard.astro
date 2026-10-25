@@ -1,0 +1,69 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, toIsoDate } from '../lib/date';
+
+interface Props {
+  entry: CollectionEntry<'activities'>;
+}
+
+const { data } = Astro.props.entry;
+---
+
+<article class="card">
+  {data.image && <img src={data.image} alt="" loading="lazy" />}
+  <div class="body">
+    <time datetime={toIsoDate(data.date)}>{formatDate(data.date)}</time>
+    <h3>
+      {data.url ? <a href={data.url} rel="noopener" target="_blank">{data.title}</a> : data.title}
+    </h3>
+    <p>{data.summary}</p>
+    {data.tags.length > 0 && (
+      <ul class="tags">
+        {data.tags.map((tag) => <li>#{tag}</li>)}
+      </ul>
+    )}
+  </div>
+</article>
+
+<style>
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .body {
+    padding: var(--space-3);
+  }
+  time {
+    font-size: 0.8125rem;
+    color: var(--color-ink-muted);
+  }
+  h3 {
+    font-size: 1.125rem;
+    margin-block: 0.25rem var(--space-1);
+  }
+  h3 a {
+    color: inherit;
+  }
+  p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-ink-muted);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    font-size: 0.75rem;
+    color: var(--color-accent);
+  }
+</style>

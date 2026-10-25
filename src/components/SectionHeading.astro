@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  en: string;
+  id?: string;
+}
+
+const { title, en, id } = Astro.props;
+---
+
+<div class="heading" id={id}>
+  <span class="en">{en}</span>
+  <h2>{title}</h2>
+</div>
+
+<style>
+  .heading {
+    margin-bottom: var(--space-4);
+    scroll-margin-top: 5rem;
+  }
+  .en {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+  h2::after {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    margin-top: var(--space-1);
+    background: var(--color-accent-soft);
+  }
+</style>
