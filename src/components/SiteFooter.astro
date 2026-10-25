@@ -1,10 +1,12 @@
 ---
 import { profile } from '../data/profile';
+import CloudMotif from './CloudMotif.astro';
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
+  <CloudMotif class="footer-cloud" />
   <div class="container">
     <ul class="links">
       {profile.links.map((link) => (
@@ -17,21 +19,48 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    border-top: 1px solid var(--color-line);
-    padding-block: var(--space-4);
+    position: relative;
+    overflow: hidden;
+    background: var(--color-shu);
+    color: #fff;
+    padding-block: var(--space-5);
     text-align: center;
-    color: var(--color-ink-muted);
-    font-size: 0.875rem;
+  }
+  .site-footer :global(.footer-cloud) {
+    position: absolute;
+    top: 1rem;
+    right: -2rem;
+    width: 9rem;
   }
   .links {
+    position: relative;
     display: flex;
     justify-content: center;
     gap: var(--space-3);
     list-style: none;
-    margin: 0 0 var(--space-2);
+    margin: 0 0 var(--space-4);
     padding: 0;
+  }
+  .links a {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+  .links a:hover {
+    background: #fff;
+    color: var(--color-shu);
   }
   .copy {
     margin: 0;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
   }
 </style>

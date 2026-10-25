@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionHeading from '../../components/SectionHeading.astro';
+import Section from '../../components/Section.astro';
 import ActivityGrid from '../../components/ActivityGrid.astro';
 import { sortByDateDesc } from '../../lib/entries';
 
@@ -9,8 +9,7 @@ const activities = sortByDateDesc(await getCollection('activities'));
 ---
 
 <BaseLayout title="活動">
-  <section class="section container">
-    <SectionHeading title="活動" en="Activities" />
+  <Section title="活動" en="Activities">
     <ActivityGrid entries={activities} />
-  </section>
+  </Section>
 </BaseLayout>

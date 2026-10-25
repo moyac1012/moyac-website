@@ -1,0 +1,27 @@
+---
+// 参考サイトのロゴ／メニューボタンを模した菱形（朱地に白の内枠）
+---
+
+<span class="diamond" aria-hidden="true"><span class="inner"><slot /></span></span>
+
+<style>
+  .diamond {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    background: var(--color-shu);
+    transform: rotate(45deg);
+    box-shadow: 0 0 0 2px var(--color-shu);
+  }
+  .inner {
+    display: grid;
+    place-items: center;
+    width: 82%;
+    height: 82%;
+    border: 1.5px solid #fff;
+  }
+  .inner > :global(*) {
+    transform: rotate(-45deg);
+  }
+</style>

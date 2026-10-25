@@ -1,61 +1,114 @@
 ---
 import { profile } from '../data/profile';
+import CloudMotif from './CloudMotif.astro';
 ---
 
 <section class="hero">
+  <CloudMotif class="cloud-a" />
+  <CloudMotif class="cloud-b" />
+  <CloudMotif class="cloud-c" />
   <div class="container inner">
-    <div class="text">
-      <p class="kana">{profile.nameKana}</p>
-      <h1>{profile.name}</h1>
+    <div class="portrait">
+      <img src={profile.photo} alt={`${profile.name}の写真`} width="600" height="600" />
+    </div>
+    <div class="identity">
+      <h1>
+        <span class="kana">{profile.nameKana}</span>
+        <span class="name">{profile.name}</span>
+      </h1>
       <p class="tagline">{profile.tagline}</p>
     </div>
-    <img class="photo" src={profile.photo} alt={`${profile.name}の写真`} width="600" height="750" />
   </div>
 </section>
 
 <style>
   .hero {
-    background: var(--color-hero-bg);
-    color: var(--color-hero-ink);
+    position: relative;
+    overflow: hidden;
+    background: var(--color-shu);
+    color: #fff;
+  }
+  .hero :global(.cloud) {
+    position: absolute;
+    width: clamp(7rem, 22vw, 14rem);
+    opacity: 0.95;
+  }
+  .hero :global(.cloud-a) {
+    top: 1.5rem;
+    left: -2rem;
+  }
+  .hero :global(.cloud-b) {
+    top: 3rem;
+    right: -3rem;
+  }
+  .hero :global(.cloud-c) {
+    bottom: 2rem;
+    left: 55%;
+    width: clamp(6rem, 16vw, 10rem);
   }
   .inner {
+    position: relative;
     display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
+    justify-items: center;
     gap: var(--space-4);
-    padding-block: var(--space-5);
+    padding-block: var(--space-6) var(--space-5);
   }
-  .kana {
-    margin: 0;
-    font-size: 0.875rem;
-    letter-spacing: 0.4em;
-    color: var(--color-accent-soft);
+  .portrait {
+    width: min(17rem, 72vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 0.5rem;
+    background: #fff;
+    box-shadow: 0 0 0 4px var(--color-kin);
+  }
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .identity {
+    text-align: center;
   }
   h1 {
-    font-size: clamp(2.5rem, 9vw, 4.5rem);
+    color: var(--color-ki);
+  }
+  .kana {
+    display: block;
+    font-size: 0.875rem;
+    letter-spacing: 0.4em;
+    color: #fff;
+  }
+  .name {
+    display: block;
+    font-size: clamp(2.75rem, 11vw, 5rem);
+    font-weight: 800;
     letter-spacing: 0.12em;
+    line-height: 1.2;
   }
   .tagline {
-    margin: var(--space-2) 0 0;
+    display: inline-block;
+    margin: var(--space-3) 0 0;
+    padding: 0.75rem 1.5rem;
+    background: #fff;
+    color: var(--color-shu);
     font-family: var(--font-heading);
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-  }
-  .photo {
-    width: 100%;
-    max-width: min(16rem, 70vw);
-    justify-self: center;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border: 1px solid var(--color-accent-soft);
-    padding: 0.5rem;
+    font-weight: 700;
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    letter-spacing: 0.1em;
   }
   @media (min-width: 48rem) {
     .inner {
-      grid-template-columns: 1.2fr 1fr;
-      padding-block: var(--space-6);
+      grid-template-columns: auto 1fr;
+      justify-items: start;
+      align-items: center;
+      gap: var(--space-5);
     }
-    .photo {
-      max-width: 22rem;
+    .identity {
+      text-align: left;
+    }
+    .portrait {
+      width: 20rem;
     }
   }
 </style>

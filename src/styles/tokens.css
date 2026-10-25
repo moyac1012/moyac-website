@@ -1,18 +1,22 @@
 /*
  * デザイントークン（配色・書体・余白）
- * 参考サイトのデザインに合わせる際は、このファイルの値だけを差し替える。
- * 現在の値は仮置き（墨色ベース＋金のアクセント、明朝見出し）。
+ * 配色は参考サイト（kurokaminootome.com）のスクリーンショットから抽出した値。
+ * 本文を読む領域は落ち着いた色にし、朱・金・黄はヘッダー・ヒーロー・装飾に限定する。
  */
 :root {
-  --color-bg: #f6f1e7;
-  --color-surface: #fffdf8;
-  --color-ink: #1c1917;
-  --color-ink-muted: #5c544b;
-  --color-line: #d9cfbf;
-  --color-accent: #9a3b2e;
-  --color-accent-soft: #c8a45c;
-  --color-hero-bg: #1c1917;
-  --color-hero-ink: #f6f1e7;
+  /* ブランドカラー（参考サイト由来） */
+  --color-shu: #c9311c; /* 朱：ヒーロー・フッター・メニュー背景 */
+  --color-kin: #a38636; /* 金：ヘッダー帯・雲の装飾 */
+  --color-ki: #fff000; /* 黄：赤背景上の見出し・メニュー文字 */
+  --color-sumi: #111; /* 墨：帯 */
+
+  /* 読む領域（落ち着いた色） */
+  --color-bg: #fbf8f2;
+  --color-surface: #ffffff;
+  --color-ink: #2b2421;
+  --color-ink-muted: #6b625b;
+  --color-line: #e3dbcd;
+  --color-accent: var(--color-shu);
 
   --font-heading: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --font-body: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
@@ -25,19 +29,6 @@
   --space-6: 6rem;
 
   --content-width: 64rem;
+  --header-height: 4.5rem;
   --radius: 4px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #151311;
-    --color-surface: #1f1c19;
-    --color-ink: #ece5d8;
-    --color-ink-muted: #a89e90;
-    --color-line: #3a342e;
-    --color-accent: #d9735f;
-    --color-accent-soft: #c8a45c;
-    --color-hero-bg: #0d0c0b;
-    --color-hero-ink: #ece5d8;
-  }
 }

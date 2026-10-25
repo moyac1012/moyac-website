@@ -2,12 +2,13 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import SectionHeading from '../components/SectionHeading.astro';
+import Section from '../components/Section.astro';
 import WorkHighlights from '../components/WorkHighlights.astro';
 import MediaList from '../components/MediaList.astro';
 import ActivityGrid from '../components/ActivityGrid.astro';
 import PostList from '../components/PostList.astro';
 import MoreLink from '../components/MoreLink.astro';
+import NoteBand from '../components/NoteBand.astro';
 import { profile } from '../data/profile';
 import { isPublished, sortByDateDesc } from '../lib/entries';
 
@@ -20,36 +21,33 @@ const posts = sortByDateDesc(await getCollection('posts', isPublished)).slice(0,
 <BaseLayout>
   <Hero />
 
-  <section class="section container">
-    <SectionHeading id="about" title="プロフィール" en="About" />
+  <Section id="about" title="プロフィール" en="About">
     <p class="bio">{profile.bio}</p>
     <WorkHighlights />
-  </section>
+  </Section>
 
-  <section class="section container">
-    <SectionHeading title="メディア出演" en="Media" />
+  <Section title="メディア出演" en="Media">
     <MediaList entries={media} />
     <MoreLink href="/media/" label="すべてのメディア出演" />
-  </section>
+  </Section>
 
-  <section class="section container">
-    <SectionHeading title="活動" en="Activities" />
+  <Section title="活動" en="Activities">
     <ActivityGrid entries={activities} />
     <MoreLink href="/activities/" label="すべての活動" />
-  </section>
+  </Section>
 
-  <section class="section container">
-    <SectionHeading title="記事" en="Writing" />
+  <Section title="記事" en="Writing">
     <PostList entries={posts} />
     <MoreLink href="/posts/" label="すべての記事" />
-  </section>
+  </Section>
 
   {profile.contactEmail && (
-    <section class="section container">
-      <SectionHeading title="お問い合わせ" en="Contact" />
+    <Section title="お問い合わせ" en="Contact">
       <p><a href={`mailto:${profile.contactEmail}`}>{profile.contactEmail}</a></p>
-    </section>
+    </Section>
   )}
+
+  <NoteBand />
 </BaseLayout>
 
 <style>

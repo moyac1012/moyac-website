@@ -1,59 +1,109 @@
 ---
 import { profile } from '../data/profile';
 import { navigation } from '../data/navigation';
+import DiamondMark from './DiamondMark.astro';
 ---
 
 <header class="site-header">
-  <div class="container inner">
-    <a class="logo" href="/">{profile.name}</a>
-    <nav aria-label="メインメニュー">
-      <ul>
-        {navigation.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
-        ))}
-      </ul>
-    </nav>
-  </div>
+  <a class="name" href="/">{profile.name}</a>
+  <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu">
+    <DiamondMark><span class="bars"></span></DiamondMark>
+    <span class="visually-hidden">メニュー</span>
+  </button>
 </header>
+
+<nav class="menu" id="site-menu" aria-label="メインメニュー" hidden>
+  <ul>
+    <li><a href="/">トップ</a></li>
+    {navigation.map((item) => (
+      <li><a href={item.href}>{item.label}</a></li>
+    ))}
+  </ul>
+</nav>
+
+<script>
+  function setMenuOpen(button: HTMLButtonElement, menu: HTMLElement, open: boolean) {
+    button.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+  }
+
+  const button = document.querySelector<HTMLButtonElement>('.menu-button');
+  const menu = document.querySelector<HTMLElement>('#site-menu');
+
+  if (button && menu) {
+    button.addEventListener('click', () => {
+      setMenuOpen(button, menu, button.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setMenuOpen(button, menu, false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMenuOpen(button, menu, false);
+    });
+  }
+</script>
 
 <style>
   .site-header {
     position: sticky;
     top: 0;
-    z-index: 10;
-    background: color-mix(in srgb, var(--color-bg) 90%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--color-line);
-  }
-  .inner {
-    display: flex;
-    flex-wrap: wrap;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-1) var(--space-3);
-    padding-block: var(--space-2);
+    height: var(--header-height);
+    padding-inline: 1rem;
+    background: var(--color-kin);
   }
-  .logo {
+  .name {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
-    color: var(--color-ink);
-    text-decoration: none;
+    font-weight: 700;
     letter-spacing: 0.15em;
+    color: #fff;
+    text-decoration: none;
   }
-  ul {
+  .menu-button {
+    grid-column: 2;
+    padding: 0.75rem;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .bars {
+    width: 0.9rem;
+    height: 0.7rem;
+    background: linear-gradient(#fff 0 0) top / 100% 2px no-repeat,
+      linear-gradient(#fff 0 0) center / 100% 2px no-repeat,
+      linear-gradient(#fff 0 0) bottom / 100% 2px no-repeat;
+  }
+
+  .menu {
+    position: fixed;
+    inset: var(--header-height) 0 0;
+    z-index: 20;
+    overflow-y: auto;
+    background: var(--color-shu);
+    padding: var(--space-5) 1rem;
+  }
+  .menu ul {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1) var(--space-3);
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: var(--space-4);
     list-style: none;
     margin: 0;
     padding: 0;
-    font-size: 0.875rem;
   }
-  nav a {
-    color: var(--color-ink-muted);
+  .menu a {
+    writing-mode: vertical-rl;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    letter-spacing: 0.2em;
+    color: var(--color-ki);
     text-decoration: none;
   }
-  nav a:hover {
-    color: var(--color-accent);
+  .menu a:hover {
+    color: #fff;
   }
 </style>

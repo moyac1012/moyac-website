@@ -16,7 +16,7 @@ npm run build    # dist/ に静的ファイルを出力
 | --- | --- |
 | 名前・キャッチコピー・自己紹介・SNSリンク | `src/data/profile.ts` |
 | プロフィール写真 | `public/images/` に画像を置き、`profile.ts` の `photo` を変更 |
-| 配色・フォント・余白 | `src/styles/tokens.css`（デザインはここに集約） |
+| 配色・フォント・余白 | `src/styles/tokens.css`（デザインはここに集約。朱・金・黄は参考サイトのスクリーンショットから抽出） |
 | メディア出演を追加 | `src/content/media/` に Markdown を追加 |
 | 活動を追加 | `src/content/activities/` に Markdown を追加 |
 | 記事を追加 | `src/content/posts/` に Markdown を追加（`draft: true` で非公開） |
